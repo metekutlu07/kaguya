@@ -13,7 +13,7 @@ function noise(x,y,z){const ix=Math.floor(x),iy=Math.floor(y),iz=Math.floor(z),f
 export function makeFog(name){
  const a=config[name],canvas=document.createElement('canvas');canvas.width=144;canvas.height=112;
  const ctx=canvas.getContext('2d'),im=ctx.createImageData(canvas.width,canvas.height),pixels=im.data;let previous=-1;
- function update(time){const rate=innerWidth<700?4:7,phase=(a.seed%11)/11,tick=Math.floor(time*rate+phase);if(tick===previous)return false;previous=tick;const t=(tick-phase)/rate;
+ function update(time,overrideRate){const rate=overrideRate??(innerWidth<700?4:7),phase=(a.seed%11)/11,tick=Math.floor(time*rate+phase);if(tick===previous)return false;previous=tick;const t=(tick-phase)/rate;
   for(let y=0;y<canvas.height;y++)for(let x=0;x<canvas.width;x++){
    const u=x/(canvas.width-1),v=y/(canvas.height-1),q=a.scale,xx=u*q+t*.022,yy=v*q*1.9,zz=a.seed+t*.012;
    const n=.60*noise(xx,yy,zz)+.28*noise(xx*2.1,yy*2.1,zz+11)+.12*noise(xx*4.3,yy*4.3,zz+29);
@@ -36,7 +36,7 @@ export function installAtmosphereGrade(){
 export function makeHorizonMist(){
  const canvas=document.createElement('canvas');canvas.width=220;canvas.height=48;
  const ctx=canvas.getContext('2d'),im=ctx.createImageData(canvas.width,canvas.height);let last=-1;
- function update(time){const tick=Math.floor(time*10);if(tick===last)return false;last=tick;const t=tick/10;
+ function update(time,rate=10){const tick=Math.floor(time*rate);if(tick===last)return false;last=tick;const t=tick/rate;
   for(let y=0;y<canvas.height;y++)for(let x=0;x<canvas.width;x++){
    const u=x/(canvas.width-1),v=y/(canvas.height-1),a=noise(u*5+t*.035,v*1.4,7+t*.018),b=noise(u*11-t*.026,v*3.4,19+t*.022),n=a*.72+b*.28;
    const ridge=.48+(a-.5)*.14,veil=Math.exp(-(((v-ridge)/.235)**2)),core=Math.exp(-(((v-.5)/.075)**2)),edge=Math.sin(Math.PI*v)**1.4;

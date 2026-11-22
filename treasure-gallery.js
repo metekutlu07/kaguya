@@ -15,12 +15,13 @@ function render(now){
  const dt=Math.min(50,now-last);last=now;
  if(!gallery||portal.hidden||portal.classList.contains('show-info')||!renderer)return;
  const bounds=galleryBounds();
+ const center=(bounds.left+bounds.right)/2;
  for(const [el,v] of cache){if(!v.model)continue;const r=el.getBoundingClientRect();if(r.bottom<=bounds.top||r.top>=bounds.bottom||r.right<=bounds.left||r.left>=bounds.right)continue;
-  const w=Math.round(el.clientWidth*Math.min(devicePixelRatio,1.4)),h=Math.round(el.clientHeight*Math.min(devicePixelRatio,1.4));if(!w||!h)continue;
+  const central=Math.abs((r.left+r.right)/2-center)<r.width*.55||drag?.el===el;const desktop=desktopGallery.matches;if(desktop&&!central&&now-(v.lastRender??-Infinity)<100)continue;const ratio=Math.min(devicePixelRatio,desktop?(central?1.15:.8):1.4);const w=Math.round(el.clientWidth*ratio),h=Math.round(el.clientHeight*ratio);if(!w||!h)continue;
   if(v.canvas.width!==w||v.canvas.height!==h){v.canvas.width=w;v.canvas.height=h;v.camera.aspect=w/h;v.camera.updateProjectionMatrix();}
-  if(!drag||drag.el!==el)v.angle+=dt*.00035;
+  if(!drag||drag.el!==el)v.angle+=(desktop?Math.min(150,now-(v.lastRender??now)):dt)*.00035;v.lastRender=now;
   v.model.group.rotation.order='YXZ';v.model.group.rotation.y=v.angle;v.model.group.rotation.x=v.tilt;
-  renderer.setSize(w,h,false);renderer.render(v.scene,v.camera);v.ctx.clearRect(0,0,w,h);v.ctx.drawImage(renderer.domElement,0,0,w,h);el.classList.add('is-live');
+  if(!desktop||renderer.domElement.width!==w||renderer.domElement.height!==h)renderer.setSize(w,h,false);renderer.render(v.scene,v.camera);v.ctx.clearRect(0,0,w,h);v.ctx.drawImage(renderer.domElement,0,0,w,h);el.classList.add('is-live');
  }
 }
 async function select(el){

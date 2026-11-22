@@ -30,7 +30,7 @@ function updateGate(){const en=gate.querySelector('input:checked').value==='en';
 installSound(gate);gate.addEventListener('change',updateGate);if(new URLSearchParams(location.search).get('lang')==='en'||location.hash==='#treasures'&&sessionStorage.getItem('kaguya-language')==='en')gate.querySelector('input[value=en]').checked=true;updateGate();enter.disabled=false;
 const fonts=Promise.allSettled([document.fonts.load('300 20px "Space Grotesk"'),document.fonts.load('400 20px "Noto Story Sans"','选择语言声音关闭进入中文'),document.fonts.load('400 24px Basteleur'),document.fonts.load('400 24px "Noto Story Serif"','辉夜五件宝物')]);
 fonts.then(()=>gate.classList.add('fonts-ready'));
-const mirrorPreload=new Image();mirrorPreload.src=desktopFullscreen.matches?'assets/composition/mirror-desktop-masked.webp':'assets/composition/mirror-overlay.png';mirrorPreload.decode?.().catch(()=>{});
+const mirrorPreload=new Image();mirrorPreload.src=desktopFullscreen.matches?'assets/composition/mirror-desktop-pearl.webp':'assets/composition/mirror-overlay.png';mirrorPreload.decode?.().catch(()=>{});
 const jewelPreload=new Image();jewelPreload.src='assets/composition/mirror-jewels-small.png';jewelPreload.decode?.().catch(()=>{});
 const logoPreload=new Image();logoPreload.src='assets/composition/kaguya-console-logo.webp';logoPreload.decode?.().catch(()=>{});
 const artwork=preloadScene();artwork.catch(()=>{});

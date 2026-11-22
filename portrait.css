@@ -376,3 +376,10 @@ html[lang='zh-CN'] .copy p{color:#fff9ef;-webkit-text-stroke:.55px rgba(15,43,57
  .fullscreen-option span{display:none}
  .language-gate.is-loading .fullscreen-option{visibility:hidden}
 }
+
+/* Opening credits and breathing room above the constellation. */
+:root{--constellation-centre:calc(max(4vh,calc(env(safe-area-inset-bottom) + 2vh)) + 7.5px);--previous-hint-bottom:max(8.8vh,calc(env(safe-area-inset-bottom) + 30px + 2vh));--hint-bottom:calc(var(--previous-hint-bottom) + 2 * (var(--previous-hint-bottom) - var(--constellation-centre)))}
+@media(min-width:700px) and (hover:hover) and (pointer:fine){:root{--constellation-centre:calc(max(4vh,calc(env(safe-area-inset-bottom) + 2vh)) + 15px)}}
+.note,.opening-invitation,html[lang='en'] .opening-invitation,.celestial-hint{bottom:var(--hint-bottom)}
+.opening-credit,html[lang='en'] .opening-credit{font-size:25px;margin-top:3.3rem}
+html[lang='zh-CN'] .opening-credit{font-size:clamp(30px,7.6667vw,38.3333px);margin-top:3.3rem}

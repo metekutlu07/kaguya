@@ -383,3 +383,33 @@ html[lang='zh-CN'] .copy p{color:#fff9ef;-webkit-text-stroke:.55px rgba(15,43,57
 .note,.opening-invitation,html[lang='en'] .opening-invitation,.celestial-hint{bottom:var(--hint-bottom)}
 .opening-credit,html[lang='en'] .opening-credit{font-size:25px;margin-top:3.3rem}
 html[lang='zh-CN'] .opening-credit{font-size:clamp(30px,7.6667vw,38.3333px);margin-top:3.3rem}
+
+/* Wide home-console edition: the original mobile frame is untouched. */
+.desktop-frame-art,.desktop-glints,.desktop-treasure-nav{display:none!important}
+@media(min-width:700px) and (hover:hover) and (pointer:fine){
+ .treasure-portal{--frame-w:min(98vw,133.3333dvh);touch-action:auto}
+ .mirror-shell{aspect-ratio:4/3;--screen-shape:polygon(18% 26%,82% 26%,86% 33%,84% 42%,88% 49%,85% 57%,80% 63%,20% 63%,15% 57%,12% 49%,16% 42%,14% 34%)}
+ .mirror-shell .mirror-animated-art,.mirror-shell .mirror-glints:not(.desktop-glints){display:none}
+ .mirror-shell .desktop-frame-art,.mirror-shell .desktop-glints{display:block!important}
+ .mirror-shell .treasure-inner{top:29%;bottom:39.5%;left:50%;width:70%;padding:0;box-sizing:border-box;overflow:hidden;display:flex;flex-direction:column}
+ .mirror-shell .treasure-header{flex:none;padding:0 18% 2px 3%;text-align:left}
+ .mirror-shell .treasure-header h1{font-size:clamp(14px,calc(var(--frame-w)*.025),30px);margin:0 0 3px;line-height:1.05}
+ .mirror-shell .treasure-header h2{font-size:clamp(10px,calc(var(--frame-w)*.014),15px);margin:0;line-height:1.2;white-space:normal}
+ .mirror-controls{top:29.7%;left:73%;gap:clamp(5px,calc(var(--frame-w)*.009),12px)}
+ .mirror-jewel{width:clamp(24px,calc(var(--frame-w)*.034),44px);height:clamp(24px,calc(var(--frame-w)*.034),44px)}
+ .mirror-shell .treasure-grid{position:relative;display:flex;flex:1;min-height:0;flex-direction:row;align-items:stretch;gap:0;box-sizing:border-box;overflow-x:auto;overflow-y:hidden;scrollbar-width:none;scroll-snap-type:x mandatory;padding-inline:calc(var(--frame-w)*.175);overscroll-behavior:contain}
+ .mirror-shell .treasure-grid::-webkit-scrollbar{display:none}
+ .mirror-shell .treasure-card{flex:0 0 calc(var(--frame-w)*.35);scroll-snap-align:center;display:flex;flex-direction:column;min-width:0;min-height:0;align-items:center;justify-content:center}
+ .mirror-shell .treasure-card .treasure-picture[data-model]{flex:1;width:100%;height:auto;min-height:0}
+ .mirror-shell .treasure-caption{flex:none;padding:2px 0 4px;min-height:0}
+ .mirror-shell .treasure-caption strong{font-size:clamp(13px,calc(var(--frame-w)*.019),24px)}
+ .mirror-shell .mirror-boot-mark{left:32%;right:32%;top:30%;bottom:39%}
+ .desktop-treasure-nav{display:flex!important;position:absolute;inset:43% 14% auto;justify-content:space-between;z-index:5;pointer-events:none;animation:mirror-controls-on .45s 5.10s ease-out both}
+ .desktop-treasure-nav button{pointer-events:auto;border:1px solid #d9bce4;background:#fff9;border-radius:50%;width:clamp(24px,calc(var(--frame-w)*.035),44px);aspect-ratio:1;color:#926ca9;font:inherit;font-size:clamp(17px,calc(var(--frame-w)*.027),34px);line-height:1;cursor:pointer;display:grid;place-items:center;padding:0}
+ .desktop-treasure-nav button:hover{background:#f2e4fc}
+ .show-info .desktop-treasure-nav{display:none!important}
+ .show-info .treasure-inner{overflow-y:auto;padding-top:clamp(35px,calc(var(--frame-w)*.045),60px);padding-inline:4%}
+ .show-info .treasure-about{display:block;flex:none}
+ .show-info .treasure-grid,.show-info .treasure-header{display:none}
+ .show-info .historical-illustration{max-width:60%;margin-inline:auto}
+}

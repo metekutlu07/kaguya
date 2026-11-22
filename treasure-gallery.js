@@ -6,6 +6,8 @@ let renderer,drag=null,last=0,loading=false;
 let gallery,portal,observer,frame=0;
 const fingers=new Map();
 const cache=new Map();
+// AR is a mobile experience; desktop visitors can rotate models in the mirror.
+export function canLaunchAR(){return /Android|iPhone|iPad|iPod/i.test(navigator.userAgent)||(/Macintosh/i.test(navigator.userAgent)&&navigator.maxTouchPoints>1);}
 function render(now){
  frame=requestAnimationFrame(render);
  const dt=Math.min(50,now-last);last=now;
@@ -39,7 +41,7 @@ export function installGallery(root){
  gallery.addEventListener('pointerdown',e=>{const el=e.target.closest('[data-model]');if(!el||(drag&&drag.el!==el)||fingers.size>=2)return;if(!drag){select(el);drag={moved:false,el};}fingers.set(e.pointerId,{x:e.clientX,y:e.clientY});if(fingers.size===2)drag.moved=true;el.setPointerCapture(e.pointerId);});
  gallery.addEventListener('pointermove',e=>{if(!drag||!fingers.has(e.pointerId))return;const v=cache.get(drag.el),old=fingers.get(e.pointerId),dx=e.clientX-old.x,dy=e.clientY-old.y;if(fingers.size===2){const before=distance();fingers.set(e.pointerId,{x:e.clientX,y:e.clientY});const after=distance();if(before>0&&v){v.zoom=T.MathUtils.clamp(v.zoom*after/before,.6,2.5);v.camera.zoom=v.zoom;v.camera.updateProjectionMatrix();}return;}if(!drag.moved&&Math.hypot(dx,dy)<6)return;drag.moved=true;if(v){v.angle+=dx*.012;v.tilt+=dy*.012;}fingers.set(e.pointerId,{x:e.clientX,y:e.clientY});});
  const finish=e=>{if(!drag||!fingers.has(e.pointerId))return;fingers.delete(e.pointerId);if(e.type==='pointercancel')drag.moved=true;if(fingers.size)return;if(drag.moved){const link=drag.el.closest('.treasure-card');link.dataset.dragged='1';setTimeout(()=>delete link.dataset.dragged,400);}drag=null;};gallery.addEventListener('pointerup',finish);gallery.addEventListener('pointercancel',finish);
- gallery.addEventListener('click',e=>{const card=e.target.closest('.treasure-card');if(card?.dataset.dragged){e.preventDefault();return;}const id=card?.querySelector('[data-model]')?.dataset.model;if(!id)return;const a=document.createElement('a');a.rel='ar';if(a.relList?.supports?.('ar')){e.preventDefault();a.href=`assets/composition/${id}-small.usdz`;a.innerHTML=`<img src="assets/composition/${id}-journey/06.png" alt="">`;a.style.cssText='position:fixed;left:-1000px;top:0;width:1px;height:1px;overflow:hidden';document.body.append(a);a.click();setTimeout(()=>a.remove(),1000);}});
+ gallery.addEventListener('click',e=>{const card=e.target.closest('.treasure-card');if(!canLaunchAR()||card?.dataset.dragged){e.preventDefault();return;}const id=card?.querySelector('[data-model]')?.dataset.model;if(!id)return;const a=document.createElement('a');a.rel='ar';if(a.relList?.supports?.('ar')){e.preventDefault();a.href=`assets/composition/${id}-small.usdz`;a.innerHTML=`<img src="assets/composition/${id}-journey/06.png" alt="">`;a.style.cssText='position:fixed;left:-1000px;top:0;width:1px;height:1px;overflow:hidden';document.body.append(a);a.click();setTimeout(()=>a.remove(),1000);}});
  new MutationObserver(()=>{if(!portal.hidden){portal.querySelector('.treasure-inner').scrollTop=0;choose();}}).observe(portal,{attributes:true,attributeFilter:['hidden']});
 }
 export function prepareGallery(root){installGallery(root);}

@@ -42,3 +42,8 @@ export const leftBambooParts=[
  {name:'left-canopy',crop:[0,0,550,130],rect:(W,H)=>({x:-W*.025,y:-H*.009,w:W*.85,h:W*.85*130/550})},
  {name:'left-foliage',crop:[0,340,425,524],rect:(W,H)=>({x:-W*.025,y:H*.49,w:W*.65,h:W*.65*524/425})}
 ];
+
+// Use the identical viewport-space moon rectangle for the prologue and both forest renderers.
+export function moonRect(W,H,portrait=isPortrait(W,H)){
+ return portrait?portraitRect('moon.png',W,H):{x:W*.753-H*.142,y:H*.17-H*.142,w:H*.284,h:H*.284};
+}

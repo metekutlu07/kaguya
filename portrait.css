@@ -369,8 +369,10 @@ html[lang='zh-CN'] .copy p{color:#fff9ef;-webkit-text-stroke:.55px rgba(15,43,57
 }
 .language-gate .fullscreen-option{display:none}
 @media (min-width:700px) and (hover:hover) and (pointer:fine){
- .language-gate .fullscreen-option:not([hidden]){position:absolute;top:clamp(18px,4vh,40px);right:clamp(18px,4vw,54px);display:flex;align-items:center;justify-content:center;gap:9px;min-height:42px;padding:10px 17px;box-sizing:border-box;border:1px solid #666;background:transparent;color:#ddd;font:inherit;font-size:14px;cursor:pointer;white-space:nowrap}
+ .language-gate .sound-settings:has(.fullscreen-option:not([hidden])) .sound-option{left:calc(50% - 30px)}
+ .language-gate .fullscreen-option:not([hidden]){position:absolute;top:40px;left:calc(50% + 46px);width:50px;height:50px;display:flex;align-items:center;justify-content:center;padding:0;box-sizing:border-box;border:1px solid #666;background:transparent;color:#ddd;cursor:pointer}
  .language-gate .fullscreen-option:hover,.language-gate .fullscreen-option:focus-visible{color:#fff;border-color:#fff}
- .fullscreen-option svg{width:17px;height:17px}
+ .fullscreen-option svg{width:23px;height:23px}
+ .fullscreen-option span{display:none}
  .language-gate.is-loading .fullscreen-option{visibility:hidden}
 }

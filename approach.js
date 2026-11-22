@@ -14,7 +14,7 @@ export function createApproach(surface){
  const meteorStart=.59,meteorEnd=.85,meteorWeight=1.5;
  const desktopInput=x=>x<=meteorStart?x:x<=meteorEnd?meteorStart+(x-meteorStart)*meteorWeight:x+(meteorEnd-meteorStart)*(meteorWeight-1);
  const desktopOutput=x=>x<=meteorStart?x:x<=desktopInput(meteorEnd)?meteorStart+(x-meteorStart)/meteorWeight:x-(meteorEnd-meteorStart)*(meteorWeight-1);
- const desktopMove=delta=>{target=clamp(desktopOutput(desktopInput(target*journeyLength)+delta*.25)/journeyLength);};
+ const desktopMove=delta=>{target=clamp(desktopOutput(desktopInput(target*journeyLength)+delta*.125)/journeyLength);};
  const toInput=x=>x<=start?x:x<=end?start+(x-start)*ratio:x-(end-start)*(1-ratio);
  const fromInput=x=>x<=start?x:x<=toInput(end)?start+(x-start)/ratio:x+(end-start)*(1-ratio);
  const move=delta=>{target=clamp(fromInput(toInput(target*journeyLength)+delta)/journeyLength);if(delta>0&&target>1-.17/journeyLength)target=1;};

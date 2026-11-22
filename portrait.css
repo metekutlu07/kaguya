@@ -354,3 +354,23 @@ html[lang='zh-CN'] .copy p{color:#fff9ef;-webkit-text-stroke:.55px rgba(15,43,57
  .copy p{font-size:clamp(22px,min(2.6vw,4.5vh),42px)}
  html[lang='en'] .copy p,html[lang='en'] .copy h1,html[lang='en'] .copy h2{ text-shadow:0 1px 2px rgba(12,34,48,.8),0 2px 6px rgba(12,34,48,.52); }
 }
+
+/* The desktop constellation is a compact, more legible navigation ornament. */
+@media (min-width:700px) and (hover:hover) and (pointer:fine){
+ .constellation{left:21.333333%;width:57.333333%;height:30px}
+ .constellation-line,.constellation-fill{height:2px}
+ .constellation-start{width:10px;height:10px}
+ .constellation i{width:20px;height:20px}
+ .constellation-moon{width:22px;height:22px;right:-11px}
+}
+/* Preserve the clean mobile English typography except over the pale blanket. */
+@media (max-width:699px), (hover:none), (pointer:coarse){
+ html[lang='en'] .copy[data-chapter="The Fire-Rat Robe"] p{ text-shadow:0 1px 2px rgba(18,42,57,.72),0 2px 6px rgba(18,42,57,.48); }
+}
+.language-gate .fullscreen-option{display:none}
+@media (min-width:700px) and (hover:hover) and (pointer:fine){
+ .language-gate .fullscreen-option:not([hidden]){position:absolute;top:clamp(18px,4vh,40px);right:clamp(18px,4vw,54px);display:flex;align-items:center;justify-content:center;gap:9px;min-height:42px;padding:10px 17px;box-sizing:border-box;border:1px solid #666;background:transparent;color:#ddd;font:inherit;font-size:14px;cursor:pointer;white-space:nowrap}
+ .language-gate .fullscreen-option:hover,.language-gate .fullscreen-option:focus-visible{color:#fff;border-color:#fff}
+ .fullscreen-option svg{width:17px;height:17px}
+ .language-gate.is-loading .fullscreen-option{visibility:hidden}
+}

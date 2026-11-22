@@ -2,7 +2,27 @@ import {setLanguage} from './language.js';
 import {installSound,setSoundLanguage,startSound} from './soundscape.js';
 import {preloadScene} from './scene-assets.js';
 const gate=document.querySelector('.language-gate'),journey=document.querySelector('#journey'),enter=gate.querySelector('.enter');
-function updateGate(){const en=gate.querySelector('input:checked').value==='en';gate.querySelector('legend').textContent=en?'Language':'选择语言';gate.setAttribute('aria-label',en?'Select language':'选择语言');enter.textContent=en?'Enter':'进入';gate.lang=en?'en':'zh-CN';setSoundLanguage(en);}
+// Fullscreen needs a direct user gesture; keep this control out of the gate's layout.
+const fullscreenButton=document.createElement('button');
+fullscreenButton.type='button';fullscreenButton.className='fullscreen-option';
+fullscreenButton.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H3v5m13-5h5v5M3 16v5h5m13-5v5h-5"/></svg><span></span>';
+const desktopFullscreen=matchMedia('(min-width:700px) and (hover:hover) and (pointer:fine)');
+const screenElement=document.documentElement;
+const requestFull=screenElement.requestFullscreen||screenElement.webkitRequestFullscreen;
+const exitFull=document.exitFullscreen||document.webkitExitFullscreen;
+const isFull=()=>Boolean(document.fullscreenElement||document.webkitFullscreenElement);
+function updateFullscreen(){
+ const en=gate.querySelector('input:checked').value==='en',full=isFull();
+ fullscreenButton.hidden=!desktopFullscreen.matches||!requestFull||!exitFull;
+ fullscreenButton.querySelector('span').textContent=en?(full?'Exit fullscreen':'Fullscreen'):(full?'退出全屏':'全屏模式');
+ fullscreenButton.setAttribute('aria-pressed',String(full));
+}
+fullscreenButton.addEventListener('click',async()=>{try{if(isFull())await exitFull.call(document);else await requestFull.call(screenElement);}catch(error){console.warn('Fullscreen unavailable',error);}updateFullscreen();});
+document.addEventListener('fullscreenchange',updateFullscreen);
+document.addEventListener('webkitfullscreenchange',updateFullscreen);
+desktopFullscreen.addEventListener?.('change',updateFullscreen);
+gate.append(fullscreenButton);
+function updateGate(){const en=gate.querySelector('input:checked').value==='en';gate.querySelector('legend').textContent=en?'Language':'选择语言';gate.setAttribute('aria-label',en?'Select language':'选择语言');enter.textContent=en?'Enter':'进入';gate.lang=en?'en':'zh-CN';setSoundLanguage(en);updateFullscreen();}
 installSound(gate);gate.addEventListener('change',updateGate);if(new URLSearchParams(location.search).get('lang')==='en'||location.hash==='#treasures'&&sessionStorage.getItem('kaguya-language')==='en')gate.querySelector('input[value=en]').checked=true;updateGate();enter.disabled=false;
 const fonts=Promise.allSettled([document.fonts.load('300 20px "Space Grotesk"'),document.fonts.load('400 20px "Noto Story Sans"','选择语言声音关闭进入中文'),document.fonts.load('400 24px Basteleur'),document.fonts.load('400 24px "Noto Story Serif"','辉夜五件宝物')]);
 fonts.then(()=>gate.classList.add('fonts-ready'));

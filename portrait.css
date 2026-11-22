@@ -393,7 +393,7 @@ html[lang='zh-CN'] .opening-credit{font-size:clamp(30px,7.6667vw,38.3333px);marg
 .desktop-frame-art,.desktop-glints,.desktop-treasure-nav{display:none!important}
 @media(min-width:700px) and (hover:hover) and (pointer:fine){
  .treasure-portal{--frame-w:min(98vw,133.3333dvh);touch-action:auto}
- .mirror-shell{aspect-ratio:4/3;--screen-shape:polygon(15% 19%,25% 14%,39% 15%,50% 12%,61% 15%,75% 14%,85% 19%,87% 32%,89% 42%,91% 54%,89% 66%,84% 74%,75% 81%,25% 81%,16% 74%,11% 66%,9% 54%,11% 42%,13% 32%)}
+ .mirror-shell{aspect-ratio:4/3;--screen-shape:inset(0)}
  .mirror-shell .mirror-animated-art,.mirror-shell .mirror-glints:not(.desktop-glints){display:none}
  .mirror-shell .desktop-frame-art,.mirror-shell .desktop-glints{display:block!important}
  .mirror-shell .treasure-screen-texture{display:none}

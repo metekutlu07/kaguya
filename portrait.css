@@ -393,27 +393,29 @@ html[lang='zh-CN'] .opening-credit{font-size:clamp(30px,7.6667vw,38.3333px);marg
 .desktop-frame-art,.desktop-glints,.desktop-treasure-nav{display:none!important}
 @media(min-width:700px) and (hover:hover) and (pointer:fine){
  .treasure-portal{--frame-w:min(98vw,133.3333dvh);touch-action:auto}
- .mirror-shell{aspect-ratio:4/3;--screen-shape:polygon(15% 19%,25% 15%,39% 17%,50% 12%,61% 17%,75% 15%,85% 19%,89% 34%,87% 45%,91% 54%,87% 66%,77% 73%,60% 75%,50% 79%,40% 75%,23% 73%,13% 66%,9% 54%,13% 45%,11% 34%)}
+ .mirror-shell{aspect-ratio:4/3;--screen-shape:polygon(15% 19%,25% 14%,39% 15%,50% 12%,61% 15%,75% 14%,85% 19%,87% 32%,89% 42%,91% 54%,89% 66%,84% 74%,75% 81%,25% 81%,16% 74%,11% 66%,9% 54%,11% 42%,13% 32%)}
  .mirror-shell .mirror-animated-art,.mirror-shell .mirror-glints:not(.desktop-glints){display:none}
  .mirror-shell .desktop-frame-art,.mirror-shell .desktop-glints{display:block!important}
- .mirror-shell .treasure-inner{top:33%;bottom:35.5%;left:50%;width:66%;padding:0;box-sizing:border-box;overflow:hidden;display:flex;flex-direction:column}
- .mirror-shell .treasure-header{flex:none;padding:0 32% 2px 3%;text-align:left}
+ .mirror-shell .treasure-screen-texture{display:none}
+ .mirror-shell .treasure-inner{inset:0;width:100%;transform:none;padding:0;box-sizing:border-box;overflow:hidden;display:block;clip-path:var(--screen-shape)}
+ .mirror-shell .treasure-header{position:absolute;z-index:2;top:33%;left:19%;right:35%;padding:0;text-align:left;pointer-events:none;text-shadow:0 1px 4px #fff,0 0 8px #fff}
  .mirror-shell .treasure-header h1{font-size:clamp(14px,calc(var(--frame-w)*.025),30px);margin:0 0 3px;line-height:1.05}
  .mirror-shell .treasure-header h2{font-size:clamp(10px,calc(var(--frame-w)*.014),15px);margin:0;line-height:1.2;white-space:normal}
  .mirror-controls{top:33%;left:76%;gap:clamp(5px,calc(var(--frame-w)*.009),12px)}
  .mirror-jewel{width:clamp(24px,calc(var(--frame-w)*.034),44px);height:clamp(24px,calc(var(--frame-w)*.034),44px)}
- .mirror-shell .treasure-grid{position:relative;display:flex;flex:1;min-height:0;flex-direction:row;align-items:stretch;gap:0;box-sizing:border-box;overflow-x:auto;overflow-y:hidden;scrollbar-width:none;scroll-snap-type:x mandatory;padding-inline:0;overscroll-behavior:contain}
+ .mirror-shell .treasure-grid{position:absolute;inset:9% 7% 14%;display:flex;min-height:0;flex-direction:row;align-items:stretch;gap:0;box-sizing:border-box;overflow-x:auto;overflow-y:hidden;scrollbar-width:none;scroll-snap-type:x mandatory;padding:0;overscroll-behavior:contain}
  .mirror-shell .treasure-grid::-webkit-scrollbar{display:none}
- .mirror-shell .treasure-card{flex:0 0 100%;scroll-snap-align:center;display:flex;flex-direction:column;min-width:0;min-height:0;align-items:center;justify-content:center}
- .mirror-shell .treasure-card .treasure-picture[data-model]{flex:1;width:100%;height:auto;min-height:0}
- .mirror-shell .treasure-caption{flex:none;padding:2px 0 4px;min-height:0}
+ .mirror-shell .treasure-card{position:relative;flex:0 0 100%;scroll-snap-align:center;display:flex;flex-direction:column;min-width:0;min-height:0;align-items:center;justify-content:center}
+ .mirror-shell .treasure-card .treasure-picture[data-model]{position:absolute;inset:0;width:100%;height:100%;min-height:0;margin:0}
+ .mirror-shell .treasure-caption{position:absolute;z-index:2;top:68%;left:0;right:0;text-align:center;padding:0;min-height:0;pointer-events:none;text-shadow:0 1px 4px #fff,0 0 8px #fff}
  .mirror-shell .treasure-caption strong{font-size:clamp(13px,calc(var(--frame-w)*.019),24px)}
  .mirror-shell .mirror-boot-mark{left:32%;right:32%;top:30%;bottom:39%}
  .desktop-treasure-nav{display:flex!important;position:absolute;inset:48% 16% auto;justify-content:space-between;z-index:5;pointer-events:none;animation:mirror-controls-on .45s 5.10s ease-out both}
  .desktop-treasure-nav button{pointer-events:auto;border:1px solid #d9bce4;background:#fff9;border-radius:50%;width:clamp(24px,calc(var(--frame-w)*.035),44px);aspect-ratio:1;color:#926ca9;font:inherit;font-size:clamp(17px,calc(var(--frame-w)*.027),34px);line-height:1;cursor:pointer;display:grid;place-items:center;padding:0}
  .desktop-treasure-nav button:hover{background:#f2e4fc}
  .show-info .desktop-treasure-nav{display:none!important}
- .show-info .treasure-inner{overflow-y:auto;padding-top:clamp(35px,calc(var(--frame-w)*.045),60px);padding-inline:4%}
+ .mirror-shell:has(.treasure-about:not([hidden])) .treasure-inner{box-sizing:border-box}
+ .show-info .mirror-shell .treasure-inner{inset:33% 17% 35.5%;width:auto;clip-path:none;overflow-y:auto;padding-top:clamp(35px,calc(var(--frame-w)*.045),60px);padding-inline:4%}
  .show-info .treasure-about{display:block;flex:none}
  .show-info .treasure-grid,.show-info .treasure-header{display:none}
  .show-info .historical-illustration{max-width:60%;margin-inline:auto}
